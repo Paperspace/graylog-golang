@@ -62,6 +62,7 @@ func Test_New_itShouldUseDefaultConfigValuesIfNoOtherProvided(t *testing.T) {
 	assert.Equal(t, g.Config.Connection, defaultConnection)
 	assert.Equal(t, g.Config.MaxChunkSizeWan, defaultMaxChunkSizeWan)
 	assert.Equal(t, g.Config.MaxChunkSizeLan, defaultMaxChunkSizeLan)
+	assert.Equal(t, g.Config.Compress, false)
 }
 
 func Test_New_itShouldUseConfigValuesFromArguments(t *testing.T) {
@@ -71,6 +72,7 @@ func Test_New_itShouldUseConfigValuesFromArguments(t *testing.T) {
 		Connection:      "wlan",
 		MaxChunkSizeWan: 42,
 		MaxChunkSizeLan: 1337,
+		Compress: true,
 	})
 
 	assert.Equal(t, g.Config.GraylogPort, 80)
@@ -78,6 +80,7 @@ func Test_New_itShouldUseConfigValuesFromArguments(t *testing.T) {
 	assert.Equal(t, g.Config.Connection, "wlan")
 	assert.Equal(t, g.Config.MaxChunkSizeWan, 42)
 	assert.Equal(t, g.Config.MaxChunkSizeLan, 1337)
+	assert.Equal(t, g.Config.Compress, true)
 }
 
 func Test_ParseJson_itShouldReturnTypeMapStringInterface(t *testing.T) {

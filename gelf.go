@@ -27,6 +27,7 @@ type Config struct {
 	Connection      string
 	MaxChunkSizeWan int
 	MaxChunkSizeLan int
+	Compress        bool
 }
 
 type Gelf struct {
@@ -131,11 +132,13 @@ func (g *Gelf) IntToBytes(i int) []byte {
 
 func (g *Gelf) Compress(b []byte) bytes.Buffer {
 	var buf bytes.Buffer
-	comp := zlib.NewWriter(&buf)
-
-	comp.Write(b)
-	comp.Close()
-
+	if g.Config.Compress {
+		comp := zlib.NewWriter(&buf)
+		comp.Write(b)
+		comp.Close()
+	} else {
+		buf.Write(b)
+	}
 	return buf
 }
 
